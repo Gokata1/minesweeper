@@ -3,20 +3,16 @@ export interface FunctionTypes {
   gridSize: number;
 }
 
-interface CoordinatesType {
-  x: number;
-  y: number;
-}
-
 function generateBombPlacements({ numberOfBombs, gridSize }: FunctionTypes) {
-  let totalOptions = gridSize * gridSize;
-  const bombArray: CoordinatesType[] = [];
-  for (let i = 0; i < numberOfBombs; i++) {
-    const val = Math.ceil(totalOptions * Math.random());
-    const y = val % 6;
-    const x = Math.ceil(val / 6);
-    totalOptions--;
-    bombArray.push({ x: x, y: y });
+  const bombArray: string[] = [];
+  let n = numberOfBombs;
+  while (n > 0) {
+    const x = Math.floor(gridSize * Math.random());
+    const y = Math.floor(gridSize * Math.random());
+    if (!bombArray.includes(x + "," + y)) {
+      bombArray.push(x + "," + y);
+      n--;
+    }
   }
   return bombArray;
 }

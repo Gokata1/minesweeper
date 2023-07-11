@@ -43,5 +43,15 @@
 
 .heading-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.mine-button {
+  height: 30px;
+  width: 30px;
 }
