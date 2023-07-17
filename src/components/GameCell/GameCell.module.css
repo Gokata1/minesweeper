@@ -1,0 +1,26 @@
+.cellStyles {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.cellStyles[data-state="hidden"] {
+  background-color: #999999;
+}
+
+.cellStyles[data-state="marked"] {
+  background-color: yellow;
+}
+
+.cellStyles[data-state="mine"] {
+  background-color: red;
+}
+
+.cellStyles[data-state="number"] {
+  background-color: rgb(233, 192, 139);
+}

@@ -1,20 +1,20 @@
-export interface FunctionTypes {
-  numberOfBombs: number;
-  gridSize: number;
-}
+// import { GameCellObject } from "../components/GameCell/GameCell";
+import { GameCellObject } from "./GameCellObject";
 
-function generateBombPlacements({ numberOfBombs, gridSize }: FunctionTypes) {
-  const bombArray: string[] = [];
+export function generateBombPlacements(
+  gridSize: number,
+  numberOfBombs: number,
+  gameBoard: GameCellObject[][]
+) {
   let n = numberOfBombs;
+  const redundancyPreventionArray: string[] = [];
   while (n > 0) {
     const x = Math.floor(gridSize * Math.random());
     const y = Math.floor(gridSize * Math.random());
-    if (!bombArray.includes(x + "," + y)) {
-      bombArray.push(x + "," + y);
+    if (!redundancyPreventionArray.includes(x + "," + y)) {
+      redundancyPreventionArray.push(x + "," + y);
+      gameBoard[x][y].setValue(-1);
       n--;
     }
   }
-  return bombArray;
 }
-
-export default generateBombPlacements;

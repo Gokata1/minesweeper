@@ -1,53 +1,25 @@
-export function populateBoardWithClues(gameBoard: number[][]) {
-  gameBoard.forEach((row, i) => {
-    row.forEach((cell, j) => {
-      let count = 0;
-      if (cell !== -1) {
-        // console.log(neighbourCount(gameBoard, i, j));
-        // gameBoard[i][j] = neighbourCount(gameBoard, i, j);
-        for (let m = i - 1; m < i + 2; m++) {
-          for (let n = i - 1; n < i + 2; n++) {
-            if (
-              m < 0 ||
-              n < 0 ||
-              m > gameBoard.length - 1 ||
-              n > gameBoard.length - 1 ||
-              (m === i && n === j)
-            ) {
-            } else {
-              console.log(">>>>>", m, n, "value>>", gameBoard[m][n]);
-              if (gameBoard[m][n] === -1) count++;
+// import { GameCellObject } from "../components/GameCell/GameCell";
+import { GameCellObject } from "./GameCellObject";
+import { neighbors } from "./NeighboursArray";
+
+export function populateBoardWithClues(gameBoard: GameCellObject[][]) {
+  const size = gameBoard.length;
+  for (let row = 0; row < gameBoard.length; row++) {
+    for (let col = 0; col < gameBoard[0].length; col++) {
+      if (gameBoard[row][col].value !== -1) {
+        let count = 0;
+        for (const [dRow, dCol] of neighbors) {
+          const newRow = row + dRow;
+          const newCol = col + dCol;
+          if (newRow >= 0 && newRow < size && newCol >= 0 && newCol < size) {
+            if (gameBoard[newRow][newCol].value === -1) {
+              count++;
             }
           }
         }
-        gameBoard[i][j] = count;
-      }
-    });
-  });
-  //   console.log(">>>>>", gameBoard);
-  //   setTimeout(() => {
-  //     neighbourCount(gameBoard, 0, 0);
-  //   }, 1000);
-  return gameBoard;
-}
-
-function neighbourCount(arr: number[][], i: number, j: number) {
-  let count = 0;
-  for (let m = i - 1; m < i + 2; m++) {
-    for (let n = i - 1; n < i + 2; n++) {
-      if (
-        m < 0 ||
-        n < 0 ||
-        m > arr.length - 1 ||
-        n > arr.length - 1 ||
-        (m === i && n === j)
-      ) {
-      } else {
-        // console.log(">>>>>", m, n, "value", arr[m]);
-        if (arr[m][n] === -1) count++;
+        gameBoard[row][col].setValue(count);
       }
     }
   }
-  console.log("Count>>>", count);
-  return count;
+  return gameBoard;
 }
